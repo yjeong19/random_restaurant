@@ -7,7 +7,7 @@ const restaurantsModel = new Schema({
     address: String,
     location: String,
     type: String,
-  }
-})
+  },
+});
 
 module.exports = mongoose.model('restaurants', restaurantsModel)

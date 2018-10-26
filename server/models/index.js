@@ -6,5 +6,5 @@ mongoose.Promise = Promise;
 
 
 //below -- module.exports to export mongoose model
-module.exports = require('./restaurants');
-module.exports = require('./user');
+module.exports.restaurants = require('./restaurants');
+module.exports.user = require('./user');

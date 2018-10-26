@@ -5,23 +5,23 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: {
     name: String,
-    required: true,
-    unique: true,
+    // required: true,
+    // unique: true,
   },
   email: {
     address: String,
-    required: true,
-    unique: true,
-  }
+    // required: true,
+    // unique: true,
+  },
   restaurants: {
     liked: [Object],
     disliked: [Object],
-  }
+  },
   posts: {
     comment: Array,
     likes: Array,
     disliked: Array,
-  }
+  },
   //do passwords later
 });
 
