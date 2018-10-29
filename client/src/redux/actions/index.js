@@ -1,0 +1,1 @@
+export { addInfo } from './addInfo';

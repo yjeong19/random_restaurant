@@ -18,3 +18,9 @@ randomly selects restaurant using yelp api
 * React - front end
 * Redux - state management
 * Node - back end
+
+
+
+--------------------------------------------------
+#####Errors I encountered
+* babel loader in react-scripts were missing
