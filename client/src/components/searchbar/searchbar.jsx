@@ -39,11 +39,7 @@ class searchbar extends Component {
 
   //initally making one submit, will do case? or other way to decide which button was chosen;
   handleSubmit(){
-    axios.get('http://localhost:8081/yelp/random?term&location=san jose&categories=coffee&price=3&limit=10',{
-      headers: {
-	       'Access-Control-Allow-Origin': '*',
-	      },
-    })
+    axios.get('http://localhost:8081/yelp/random?term&location=san jose&categories=coffee&price=3&limit=10')
     .then((response) => {
       console.log(response);
     })
