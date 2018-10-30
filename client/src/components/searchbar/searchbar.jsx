@@ -7,13 +7,17 @@ class searchbar extends Component {
 
     //var to store searchbar info
     this.searchbarInput = {
+      //make term section? or switch with categories
+      term: 'sushi',
       location: '',
       categories: '',
     };
 
     //bind events
     this.handleSearchInput = this.handleSearchInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
 
   //this makes keystroke in search bar to searchbarInput object
   handleSearchInput(e){
@@ -38,24 +42,35 @@ class searchbar extends Component {
   //make one for random and one button for regular search
 
   //initally making one submit, will do case? or other way to decide which button was chosen;
-  handleSubmit(){
-    axios.get('http://localhost:8081/yelp/random?term&location=san jose&categories=coffee&price=3&limit=10')
+  handleSubmit(e){
+    // console.log(this.searchbarInput);
+    const searchType = e.target.id === 'submit' ? 'search' : 'random';
+    console.log(searchType);
+    axios.get(`http://localhost:8081/yelp/${searchType}`, {
+      params: {
+        term: this.searchbarInput.term,
+        location: this.searchbarInput.location,
+        categories: this.searchbarInput.categories,
+        price: 1
+      }
+    })
     .then((response) => {
       console.log(response);
     })
     .catch(err => {
       console.log(err);
     })
-  }
+  };
 
 
 
   render(){
     return(
       <div>
-        <input id = 'categories' onChange = {this.handleSearchInput}></input>
-        <input id = 'location' onChange = {this.handleSearchInput}></input>
-        <button onClick = {this.handleSubmit}>submit</button>
+        <input placeholder = 'categories' id = 'categories' onChange = {this.handleSearchInput}></input>
+        <input placeholder = 'location' id = 'location' onChange = {this.handleSearchInput}></input>
+        <button id = 'submit' onClick = {this.handleSubmit}>submit</button>
+        <button id ='random' onClick = {this.handleSubmit}>random</button>
       </div>
     )
   }

@@ -6,6 +6,7 @@ const router = express.Router();
 
 //creating search through yelp api
 router.get('/search', (req, res) => {
+  console.log('/search activated')
   //postman request is req.query
   //when adding front end, check what the request comes as
   console.log(req.query)
@@ -28,6 +29,7 @@ router.get('/search', (req, res) => {
 //create a random restaurant fetch method
 router.get('/random', (req, res) => {
   console.log(req.query);
+  console.log('/random activated');
   client.search({
     term: req.query.term,
     location: req.query.location,
@@ -41,7 +43,6 @@ router.get('/random', (req, res) => {
     let randomInt = (length) => {
       return Math.floor(Math.random() * Math.floor(length));
     }
-    // console.log(randomInt(response.jsonBody.businesses.length))
     //below returns random restaurant
     res.json(response.jsonBody.businesses[randomInt(response.jsonBody.businesses.length)]);
   }).catch(err => {
