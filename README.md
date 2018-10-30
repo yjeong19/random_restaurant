@@ -22,5 +22,8 @@ randomly selects restaurant using yelp api
 
 
 --------------------------------------------------
-#####Errors I encountered
+###Errors I encountered
 * babel loader in react-scripts were missing
+
+![npm error message](./error_pics/npmError.png)
+* dev dependencies in client package.json was messed up.

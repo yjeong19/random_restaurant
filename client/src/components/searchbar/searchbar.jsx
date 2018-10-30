@@ -14,6 +14,7 @@ class searchbar extends Component {
   //this makes keystroke in search bar to searchbarInput var
   handleSearchInput(e){
     this.searchbarInput = e.target.value;
+    console.log(this.searchbarInput);
   }
 
 
