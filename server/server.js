@@ -16,9 +16,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('hello');
-});sad
+// app.get('/', (req, res) => {
+//   res.send('hello');
+// });
 app.use('/', routes);
 app.use('/yelp', yelpAPI);
 
