@@ -8,7 +8,7 @@ class searchbar extends Component {
     //var to store searchbar info
     this.searchbarInput = {
       //make term section? or switch with categories
-      term: 'sushi',
+      term: 'restaurant',
       location: '',
       categories: '',
     };
@@ -61,8 +61,6 @@ class searchbar extends Component {
       console.log(err);
     })
   };
-
-
 
   render(){
     return(
