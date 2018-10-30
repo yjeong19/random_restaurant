@@ -36,11 +36,12 @@ router.get('/random', (req, res) => {
     limit: req.query.limit,
   }).then(response => {
     //put algo here to return random restaurant
-    console.log(response.jsonBody.businesses);
+    // console.log(response.jsonBody.businesses);
+    //right now, only 5 businesses are returned -- try to get more.
     let randomInt = (length) => {
       return Math.floor(Math.random() * Math.floor(length));
     }
-    console.log(randomInt(response.jsonBody.businesses.length))
+    // console.log(randomInt(response.jsonBody.businesses.length))
     //below returns random restaurant
     res.json(response.jsonBody.businesses[randomInt(response.jsonBody.businesses.length)]);
   }).catch(err => {
