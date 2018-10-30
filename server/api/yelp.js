@@ -19,8 +19,8 @@ router.get('/search', (req, res) => {
   }).then(response => {
     // console.log(response);
     //what do i want to return -- currently 1 business
-    console.log(response.jsonBody);
-    res.send(response.jsonBody.businesses[0].name);
+    // console.log(response.jsonBody);
+    res.send(response.jsonBody.businesses);
   }).catch(e => {
     console.log(e);
     res.send(e)

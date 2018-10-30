@@ -18,6 +18,9 @@ class searchbar extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount(){
+    console.log(this.props);
+  }
 
   //this makes keystroke in search bar to searchbarInput object
   handleSearchInput(e){
@@ -44,8 +47,11 @@ class searchbar extends Component {
   //initally making one submit, will do case? or other way to decide which button was chosen;
   handleSubmit(e){
     // console.log(this.searchbarInput);
+
+    //searchType selects weather it is search or random
     const searchType = e.target.id === 'submit' ? 'search' : 'random';
     console.log(searchType);
+    //escaping in searchType so only 1 function needed for submit
     axios.get(`http://localhost:8081/yelp/${searchType}`, {
       params: {
         term: this.searchbarInput.term,
@@ -55,7 +61,8 @@ class searchbar extends Component {
       }
     })
     .then((response) => {
-      console.log(response);
+      // console.log(e.target.id);
+      this.props.addSearchResults(response.data);
     })
     .catch(err => {
       console.log(err);

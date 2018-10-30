@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Searchbar from '../../components/searchbar';
 import { connect } from 'react-redux';
+//temp importing all actions -- specifiy actions later
 import * as actions from '../../redux/actions';
 
 //temporarily importing searchbar
@@ -11,20 +12,25 @@ class resultsPage extends Component {
   constructor(props){
     super(props);
   }
+
   componentDidMount(){
-    console.log(this.props);
+    // console.log(this.props);
   }
 
 
   render(){
     return(
       <div>
-        <Searchbar />
+        <Searchbar
+          addSearchResults = { this.props.addSearchResults }
+        />
       </div>
     )
   }
 }
 
+
+//redux setup below
 const mapDispatchToProps = (dispatch) => ({
   addSearchResults: (results) => dispatch(actions.addSearchResults(results)),
 

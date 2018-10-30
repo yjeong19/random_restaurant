@@ -8,7 +8,8 @@ const initialState = null;
 const searchResultsReducer = ((state = initialState, action) => {
   switch(action.type){
     case ADD_SEARCH_RESULTS:
-      return state;
+      console.log(action.payload, 'line 11 REDUX REDUCER ---------');
+      return [...state, ...action.payload];
       break;
 
     case ADD_RANDOM_RESTAURANT:
