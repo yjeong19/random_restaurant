@@ -42,9 +42,7 @@ class searchbar extends Component {
   //submit function --
   //makes api call to yelpAPI
   //api returns either random option or a list of options
-  //make one for random and one button for regular search
 
-  //initally making one submit, will do case? or other way to decide which button was chosen;
   handleSubmit(e){
     // console.log(this.searchbarInput);
 
@@ -61,8 +59,8 @@ class searchbar extends Component {
       }
     })
     .then((response) => {
-      // console.log(e.target.id);
-      this.props.addSearchResults(response.data);
+      searchType === 'search' ? this.props.addSearchResults(response.data) : searchType === 'random' ? this.props.addRandomRestaurant(response.data) : console.log('err');
+      // this.props.addSearchResults(response.data);
     })
     .catch(err => {
       console.log(err);

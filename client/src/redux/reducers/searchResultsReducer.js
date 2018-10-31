@@ -3,17 +3,29 @@ import {
   ADD_RANDOM_RESTAURANT,
 } from '../constants';
 
-const initialState = null;
+const initialState = {
+  search: null,
+  random: null,
+  state: null,
+};
 
 const searchResultsReducer = ((state = initialState, action) => {
   switch(action.type){
     case ADD_SEARCH_RESULTS:
       console.log(action.payload, 'line 11 REDUX REDUCER ---------');
-      return [...state, ...action.payload];
+      return {
+        search: [...action.payload],
+        state: 'search'
+      };
       break;
 
     case ADD_RANDOM_RESTAURANT:
-      return state;
+      console.log(action.payload, 'line 16 redux random restaurant -------')
+      return {
+        ...state,
+        random: action.payload,
+        state: 'random'
+      }
       break;
 
     default:

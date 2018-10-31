@@ -17,4 +17,5 @@ const addRandomRestaurant = (payload) => {
   }
 }
 
-export { addSearchResults, addRandomRestaurant };
+
+export { addSearchResults, addRandomRestaurant};
