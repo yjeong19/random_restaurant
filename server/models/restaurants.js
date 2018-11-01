@@ -5,9 +5,8 @@ const restaurantsModel = new Schema({
   restaurant: {
     id: String,
     name: String,
-    address: String,
     location: {
-      address: String,
+      address1: String,
       address2: String,
       city: String,
       state: String,
@@ -18,11 +17,16 @@ const restaurantsModel = new Schema({
     rating: Number,
     price: String,
     url: String,
+    phone: String,
   },
   likes: {
     likes: Number,
     dislikes: Number,
     percentage: Number,
+  },
+  reviews: {
+    // user: [Object],
+    comments: [Object]
   }
 
 });

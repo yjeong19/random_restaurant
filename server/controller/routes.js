@@ -11,13 +11,28 @@ router.get('/test', (req, res) => {
 });
 
 router.post('/restaurant', (req, res) => {
-  console.log(req.query)
+  let { params } = req.body;
+  console.log(params, 'object literal test')
+  // console.log('line 14 route.js', req.body.params.name)
   db.restaurants.create({
       restaurant: JSON.stringify({
-        name: 'testing',
-        address: 'hello',
-        location: 'california',
-        type: 'tester'
+        name: params.name,
+        location: {
+          address1: params.location.address1,
+          address2: params.location.address2,
+          city: params.location.city,
+          state: params.location.state,
+          zipcode: params.location.zip_code,
+          country: params.location.country,
+        },
+        type: 'restaurant',
+        rating: params.rating,
+        price: params.price,
+        url: params.url,
+        phone: params.phone,
+        likes: {
+
+        }
       })
   })
   .then(data => {

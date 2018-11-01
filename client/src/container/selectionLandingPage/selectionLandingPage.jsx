@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
+import createPost from '../../helpers/routes';
 
 //route from resultspage
 class selectionLandingPage extends Component {
@@ -9,8 +10,20 @@ class selectionLandingPage extends Component {
 
   }
 
-  componentDidMount(){
+  componentDidUpdate(){
     // console.log(this.props.state.selection);
+    let info = this.props.state.selection ? this.props.state.selection : '';
+    if(info !== '') {
+    createPost(info)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }else{
+    return null;
+  }
   }
 
 
