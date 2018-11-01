@@ -10,7 +10,8 @@ router.get('/test', (req, res) => {
   });
 });
 
-router.post('/test', (req, res) => {
+router.post('/restaurant', (req, res) => {
+  console.log(req.query)
   db.restaurants.create({
       restaurant: JSON.stringify({
         name: 'testing',
