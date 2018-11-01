@@ -55,7 +55,7 @@ class searchbar extends Component {
         term: this.searchbarInput.term,
         location: this.searchbarInput.location,
         categories: this.searchbarInput.categories,
-        price: 1
+        // price: 
       }
     })
     .then((response) => {

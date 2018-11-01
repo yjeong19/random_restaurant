@@ -24,7 +24,6 @@ randomly selects restaurant using yelp api
 * Node - back end
 
 
-
 --------------------------------------------------
 #### Errors I encountered
 1. babel loader in react-scripts were missing

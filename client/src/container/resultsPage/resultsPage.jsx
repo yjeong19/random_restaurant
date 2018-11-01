@@ -16,7 +16,6 @@ class resultsPage extends Component {
     super(props);
 
     //bind events
-    this.handleUserSelection = this.handleUserSelection.bind(this);
   }
 
   componentDidMount(){
@@ -26,18 +25,11 @@ class resultsPage extends Component {
   componentDidUpdate(){
   }
 
-  //handle user selection then route to landing page
-  handleUserSelection(e){
-    //can get id, but not keys?
-    //right now, click on h1 will link to landing page
-    this.props.addUserSelection(e.target.id);
-  }
 
   renderCards(){
     const search = this.props.results.search;
     const random = this.props.results.random;
     // console.log(this.props.results)
-    console.log(random);
     if(this.props.results.state === 'search' && search !== null){
       return (
         search.map((info, i)=> {
