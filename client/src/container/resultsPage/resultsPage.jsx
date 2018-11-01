@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Searchbar from '../../components/searchbar';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
+import ChoiceCards from '../../components/choiceCards';
 
 //importing selectionlandingpage for now, route to based on click later;
 import SelectionLandingPage from '../selectionLandingPage';
@@ -41,20 +42,19 @@ class resultsPage extends Component {
       return (
         search.map((info, i)=> {
           return(
-            <div className='card' key = {info.id} onClick = {this.handleUserSelection}>
-              <h1 id = {info.id}>{info.name}</h1>
-              <img width = '200px' height = '200px' src = {info.image_url} />
-            </div>
+            <ChoiceCards
+              data = {info}
+              addUserSelection = {this.props.addUserSelection}
+            />
           )
         })
       )
     }else if(this.props.results.state === 'random' && random !==null){
       return (
-          //do i make card in components?
-          <div className='card' key = {random.id}>
-            <h1>{random.name}</h1>
-            <img width = '200px' height = '200px' src = {random.image_url} />
-          </div>
+        <ChoiceCards
+          data = {random}
+          addUserSelection = {this.props.addUserSelection}
+        />
       )
     }else{
       return;
