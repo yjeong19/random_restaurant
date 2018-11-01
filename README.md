@@ -2,13 +2,17 @@
 randomly selects restaurant using yelp api
 
 ## Things to do
-* Connect Yelp API
+* ~~Connect Yelp API~~
 * Create db to post comments
+  * Restaurant Schema
+  * User Schema
+* route to landing page based on restaurant ID
+  * figure out what data to pass to landing package
+  * post comments on page -- connect db to landing
 * keep track of likes
 * Need Auth
-* Incorporate Redux
-* Create front end
-* Create Routes
+* ~~Incorporate Redux~~
+* ~~Create Routes~~
 * Create error handler
 
 
@@ -23,7 +27,7 @@ randomly selects restaurant using yelp api
 
 --------------------------------------------------
 #### Errors I encountered
-* babel loader in react-scripts were missing
-* CORS issues
-![npm error message](./error_pics/npmError.png)
+1. babel loader in react-scripts were missing
+2. CORS issues
+3. ![npm error message Package issues](./error_pics/npmError.png)
   * dev dependencies in client package.json was messed up.

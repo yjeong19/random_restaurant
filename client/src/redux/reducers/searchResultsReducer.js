@@ -1,12 +1,14 @@
 import {
   ADD_SEARCH_RESULTS,
   ADD_RANDOM_RESTAURANT,
+  ADD_USER_SELECTION
 } from '../constants';
 
 const initialState = {
   search: null,
   random: null,
   state: null,
+  selection: null,
 };
 
 const searchResultsReducer = ((state = initialState, action) => {
@@ -27,6 +29,14 @@ const searchResultsReducer = ((state = initialState, action) => {
         state: 'random'
       }
       break;
+
+    case ADD_USER_SELECTION:
+      console.log(action.payload);
+      return {
+        ...state,
+        selection: action.payload,
+      }
+      break
 
     default:
       return state;

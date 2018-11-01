@@ -8,9 +8,9 @@ class searchbar extends Component {
     //var to store searchbar info
     this.searchbarInput = {
       //make term section? or switch with categories
-      term: 'restaurant',
+      term: '',
       location: '',
-      categories: '',
+      categories: 'restaurants',
     };
 
     //bind events
@@ -27,7 +27,7 @@ class searchbar extends Component {
     switch(e.target.id){
       case 'categories':
         //this may be changed to an array of options later.
-        this.searchbarInput.categories = e.target.value;
+        this.searchbarInput.term = e.target.value;
         break;
       case 'location':
         this.searchbarInput.location = e.target.value;

@@ -1,1 +1,1 @@
-export { addSearchResults, addRandomRestaurant } from './addSearchResults';
+export { addSearchResults, addRandomRestaurant, addUserSelection } from './addSearchResults';
