@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const restaurantsModel = new Schema({
+  restaurant_id: String,
   restaurant: {
     id: String,
     name: String,
@@ -13,7 +14,6 @@ const restaurantsModel = new Schema({
       zipcode: Number,
       country: String,
     },
-    type: String,
     rating: Number,
     price: String,
     url: String,
@@ -26,7 +26,7 @@ const restaurantsModel = new Schema({
   },
   reviews: {
     // user: [Object],
-    comments: [Object]
+    // comments: [Object]
   }
 
 });

@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-router.get('/test', (req, res) => {
-  db.restaurants.find()
+router.get('/restaurant/find', (req, res) => {
+  req.params.id
+  db.restaurants.find(JSON.stringify({
+    restaurant: {
+      id
+    }
+  }))
   .then(data => {
     console.log(data);
     res.json(data.restaurant)
@@ -15,12 +20,11 @@ router.put('/restaurant/test', (req, res) => {
   let { params } = req.body;
   let { id } = req.body.params;
   console.log(params.id, 'find one and update testing method');
-  let condition = JSON.stringify({restaurant: {
-    id
-  }})
+  let condition = {restaurant_id: `${id}`}
   let update = {
-    restaurant: JSON.stringify({
-      id: params.id,
+    restaurant_id: params.id,
+    restaurant: {
+      // id: params.id,
       name: params.name,
       location: {
         address1: params.location.address1,
@@ -37,22 +41,26 @@ router.put('/restaurant/test', (req, res) => {
       phone: params.phone,
       likes: {
       }
-    })
+    }
   };
 
   db.restaurants.findOneAndUpdate(condition, update, {upsert: true, new: true}
-    , ((err, result) => {
-    if (err){
-      console.log(err);
-    }else{
-      console.log(result, 'line 48 results ------------------------ \n');
-    }
-  })
-)
+    // , ((err, result) => {
+    // if (err){
+    //   console.log(err);
+    // }else{
+    //   console.log(result, 'line 48 results ------------------------ \n');
+    //   }
+    // })
+    )
     .then(data => {
-      // console.log(data.restaurant)
+      console.log('line 53 routes.js ====================================')
       res.json(data);
-    });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
 })
 
 
@@ -61,8 +69,9 @@ router.post('/restaurant', (req, res) => {
   let { params } = req.body;
   console.log(params, 'object literal test')
   // console.log('line 14 route.js', req.body.params.name)
-  db.restaurants.create({
-      restaurant: JSON.stringify({
+  db.restaurants.create(
+    {
+      restaurant: {
         id: params.id,
         name: params.name,
         location: {
@@ -81,7 +90,7 @@ router.post('/restaurant', (req, res) => {
         likes: {
 
         }
-      })
+      }
   })
   .then(data => {
     res.json(data);

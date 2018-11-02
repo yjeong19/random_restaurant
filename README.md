@@ -36,3 +36,6 @@ randomly selects restaurant using yelp api
 5. ~~Mongoose's findOneAndUpdate() is executing Mongo's FindAndModify()~~
     * set ('useFindAndModify', false)
 6. Mongoose/Mongo findOneAndUpdate {upsert: true} is replacing an exisiting object instead of creating a new one when field does not exist.
+7. ~~Mongoose cast to string error:~~
+    * ![cast to stringError](./error_pics/mongoose_unhandeledPromiseRejectionError.png)
+        * had type: string in restaurant Models. --> (https://github.com/Automattic/mongoose/issues/4181)
