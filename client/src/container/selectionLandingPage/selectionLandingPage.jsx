@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
-import createPost from '../../helpers/routes';
-
+import { checkPost, createPost } from '../../helpers/routes';
 //route from resultspage
 class selectionLandingPage extends Component {
   constructor(props){
@@ -14,7 +13,7 @@ class selectionLandingPage extends Component {
     // console.log(this.props.state.selection);
     let info = this.props.state.selection ? this.props.state.selection : '';
     if(info !== '') {
-    createPost(info)
+    checkPost(info)
     .then(res => {
       console.log(res);
     })

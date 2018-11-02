@@ -26,9 +26,13 @@ randomly selects restaurant using yelp api
 
 --------------------------------------------------
 #### Errors I encountered
-1. babel loader in react-scripts were missing
-2. CORS issues
-3. ![npm error message Package issues](./error_pics/npmError.png)
+1. ~~babel loader in react-scripts were missing~~
+2. ~~CORS issues~~
+    * used cors middleware, or could add headers in request
+3. [Resolved] ![npm error message Package issues](./error_pics/npmError.png)
     * dev dependencies in client package.json was messed up.
-4. axios promise function was returning undefined when moved to a helper function in /client/controlelr/yelp_api.js.
-    * needed to return axios method in same line. 
+4. ~~axios promise function was returning undefined when moved to a helper function in /client/controlelr/yelp_api.js~~
+    * needed to return axios method in same line.
+5. ~~Mongoose's findOneAndUpdate() is executing Mongo's FindAndModify()~~
+    * set ('useFindAndModify', false)
+6. Mongoose/Mongo findOneAndUpdate {upsert: true} is replacing an exisiting object instead of creating a new one when field does not exist.

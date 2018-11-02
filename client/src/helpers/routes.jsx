@@ -9,7 +9,7 @@ const axios = require('axios');
 // -- like/dislike,
 // -- percentage of likes,
 
-const createPost = (data) => {
+export const createPost = (data) => {
   console.log('create post activated');
   console.log(data);
   return axios.post(`http://localhost:8081/restaurant`,{
@@ -17,4 +17,11 @@ const createPost = (data) => {
   })
 };
 
-export default createPost;
+//put method, does it create new one if it exists?
+export const checkPost = (data) => {
+  return axios.put(`http://localhost:8081/restaurant/test`, {
+    params: data
+  })
+}
+
+// export default (createPost, checkPost);
