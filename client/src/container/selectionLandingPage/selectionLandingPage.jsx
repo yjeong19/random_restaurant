@@ -36,8 +36,20 @@ class selectionLandingPage extends Component {
   }
 
   handleCommentInput(e){
-    // console.log(e.target.value);
-    this.comment.comment = e.target.value;
+    // console.log(this.);
+    switch(e.target.id){
+      case 'user':
+        this.comment.user = e.target.value;
+        break;
+
+      case 'comment':
+        this.comment.comment = e.target.value;
+        break;
+
+      default:
+        return;
+    }
+    // this.comment.comment = e.target.value;
   }
 
   handleSubmit(event){
@@ -58,8 +70,8 @@ class selectionLandingPage extends Component {
         <button>Like</button>
         <button>Dislike</button>
         {/* temporarily name, add auth later */}
-        <input placeholder = 'name' />
-        <input placeholder = 'comment' onChange = {this.handleCommentInput}/>
+        <input id = 'user' placeholder = 'user' onChange = {this.handleCommentInput}/>
+        <input id = 'comment' placeholder = 'comment' onChange = {this.handleCommentInput}/>
         <button onClick = {this.handleSubmit}>submit</button>
       </div>
     )

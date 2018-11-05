@@ -17,7 +17,7 @@ router.get('/restaurant/find', (req, res) => {
 
 router.put('/restaurant/comment', (req,res) => {
   let { params } = req.body;
-  let { id, comment } = req.body.params;
+  let { id, comment, user } = req.body.params;
   let condition = {restaurant_id: `${id}`};
   console.log(comment, id, condition)
 
@@ -26,7 +26,8 @@ router.put('/restaurant/comment', (req,res) => {
     $push: {
       comments: [
         {
-          name: 'testing',
+          id,
+          user,
           comment
         }
       ]
