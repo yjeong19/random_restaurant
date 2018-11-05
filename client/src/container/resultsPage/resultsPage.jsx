@@ -3,6 +3,7 @@ import Searchbar from '../../components/searchbar';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import ChoiceCards from '../../components/choiceCards';
+import { Link } from 'react-router-dom';
 
 //importing selectionlandingpage for now, route to based on click later;
 import SelectionLandingPage from '../selectionLandingPage';
@@ -61,8 +62,10 @@ class resultsPage extends Component {
           addSearchResults = { this.props.addSearchResults }
           addRandomRestaurant = { this.props.addRandomRestaurant }
         />
-        <SelectionLandingPage />
+        {/* <SelectionLandingPage /> */}
+        <Link to = {'/restaurant_landing'}>
         <div>{this.renderCards()}</div>
+      </Link>
       </div>
     )
   }
