@@ -4,16 +4,21 @@ randomly selects restaurant using yelp api
 ## Things to do
 * ~~Connect Yelp API~~
 * Create db to post comments
-  * Restaurant Schema
+  * ~~Restaurant Schema~~
   * User Schema
 * route to landing page based on restaurant ID
   * figure out what data to pass to landing package
   * post comments on page -- connect db to landing
 * keep track of likes
+  * track percentages
 * Need Auth
 * ~~Incorporate Redux~~
 * ~~Create Routes~~
 * Create error handler
+* Comment sections
+* add other options for search
+  * Price
+  * Stars
 
 
 ---------------------------------------------------
@@ -35,7 +40,12 @@ randomly selects restaurant using yelp api
     * needed to return axios method in same line.
 5. ~~Mongoose's findOneAndUpdate() is executing Mongo's FindAndModify()~~
     * set ('useFindAndModify', false)
-6. Mongoose/Mongo findOneAndUpdate {upsert: true} is replacing an exisiting object instead of creating a new one when field does not exist.
+6. ~~Mongoose/Mongo findOneAndUpdate {upsert: true} is replacing an exisiting object instead of creating a new one when field does not exist.~~
+    * moving condition to restaurant_id instead of nesting as restaurant{
+      id: 'yelp-id'
+    } seemed to fix findOneAndUpdate. -- now it creates new if object DNE, otherwise, just updates/ doesnt do anything.
 7. ~~Mongoose cast to string error:~~
     * ![cast to stringError](./error_pics/mongoose_unhandeledPromiseRejectionError.png)
         * had type: string in restaurant Models. --> (https://github.com/Automattic/mongoose/issues/4181)
+8. Mongoose findOneAndUpdate not updating nested comments.
+    * creating a comments model, is this better option?

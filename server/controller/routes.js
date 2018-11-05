@@ -15,8 +15,47 @@ router.get('/restaurant/find', (req, res) => {
   });
 });
 
+router.put('/restaurant/comment', (req,res) => {
+  let { params } = req.body;
+  let { id, comment } = req.body.params;
+  let condition = {restaurant_id: `${id}`};
+  console.log(comment, id, condition)
+
+  //temporarily sending name and comment -- change based on auth later on
+  db.restaurants.findOneAndUpdate(condition, {
+    $push: {
+      comments: [
+        {
+          name: 'testing',
+          comment
+        }
+      ]
+    }
+  }, {new: true})
+  .then(data => {
+    console.log(data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  // let update = {
+  //   $push: {
+  //     reviews: {
+  //       comments: [
+  //         {
+  //           name: 'testing',
+  //           comment: params.comment
+  //         }
+  //       ]
+  //     }
+  //   }
+  // };
+
+
+})
+
 //findOneandUpdate createone if data dne: set {upsert: true};
-router.put('/restaurant/test', (req, res) => {
+router.put('/restaurant/selected', (req, res) => {
   let { params } = req.body;
   let { id } = req.body.params;
   console.log(params.id, 'find one and update testing method');
@@ -44,15 +83,7 @@ router.put('/restaurant/test', (req, res) => {
     }
   };
 
-  db.restaurants.findOneAndUpdate(condition, update, {upsert: true, new: true}
-    // , ((err, result) => {
-    // if (err){
-    //   console.log(err);
-    // }else{
-    //   console.log(result, 'line 48 results ------------------------ \n');
-    //   }
-    // })
-    )
+  db.restaurants.findOneAndUpdate(condition, update, {upsert: true, new: true})
     .then(data => {
       console.log('line 53 routes.js ====================================')
       res.json(data);
@@ -63,8 +94,7 @@ router.put('/restaurant/test', (req, res) => {
 
 })
 
-
-// this function posts restaurants if there isn't a new one present.
+//is this still needed? -- method above creates new one if object does not exist. -- temporarily keeping.
 router.post('/restaurant', (req, res) => {
   let { params } = req.body;
   console.log(params, 'object literal test')

@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
-import { checkPost, createPost } from '../../helpers/routes';
+import { checkPost, createPost, createComment } from '../../helpers/routes';
 //route from resultspage
 class selectionLandingPage extends Component {
   constructor(props){
     super(props);
 
+    this.comment = {
+      id: null,
+      comment: null,
+      user: null
+    };
+
+    //bind events
+    this.handleCommentInput = this.handleCommentInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
   componentDidUpdate(){
-    // console.log(this.props.state.selection);
+    console.log(this.props.state.selection);
     let info = this.props.state.selection ? this.props.state.selection : '';
     if(info !== '') {
     checkPost(info)
@@ -23,6 +33,36 @@ class selectionLandingPage extends Component {
   }else{
     return null;
   }
+  }
+
+  handleCommentInput(e){
+    // console.log(e.target.value);
+    this.comment.comment = e.target.value;
+  }
+
+  handleSubmit(event){
+    event.preventDefault();
+    this.comment.id = this.props.state.selection.id;
+    createComment(this.comment)
+    .then(data => {
+      console.log(data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  renderCommentSection(){
+    return(
+      <div>
+        <button>Like</button>
+        <button>Dislike</button>
+        {/* temporarily name, add auth later */}
+        <input placeholder = 'name' />
+        <input placeholder = 'comment' onChange = {this.handleCommentInput}/>
+        <button onClick = {this.handleSubmit}>submit</button>
+      </div>
+    )
   }
 
 
@@ -46,6 +86,9 @@ class selectionLandingPage extends Component {
     return(
       <div>
         {this.renderInfoSection()}
+        <div>
+          {this.renderCommentSection()}
+        </div>
       </div>
     )
   }

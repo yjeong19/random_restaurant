@@ -26,8 +26,9 @@ const restaurantsModel = new Schema({
   },
   reviews: {
     // user: [Object],
-    // comments: [Object]
-  }
+    comments: Array,
+  },
+  comments: Array,
 
 });
 
