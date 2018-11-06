@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-
+//gets all restaurants in db
 router.get('/restaurant/find', (req, res) => {
   req.params.id
   db.restaurants.find(JSON.stringify({
@@ -16,12 +16,12 @@ router.get('/restaurant/find', (req, res) => {
   });
 });
 
+//updates existing db and add comments on submit
 router.put('/restaurant/comment', (req,res) => {
   let { params } = req.body;
   let { id, comment, user } = req.body.params;
   let condition = {restaurant_id: `${id}`};
   console.log(comment, id, condition)
-
   //temporarily sending name and comment -- change based on auth later on
   db.restaurants.findOneAndUpdate(condition, {
     $push: {
@@ -35,28 +35,38 @@ router.put('/restaurant/comment', (req,res) => {
     }
   }, {new: true})
   .then(data => {
-    console.log(data)
+    // console.log(data.comments[(data.comments.length - 1)])
+    //this will only return the most recent comment.
+    //will this cause any issues if i am just pulling last comment -- does it need to be found by id? 
+    res.json(data.comments[data.comments.length - 1]);
   })
   .catch(err => {
     console.log(err)
+    res.json(err);
   })
-  // let update = {
-  //   $push: {
-  //     reviews: {
-  //       comments: [
-  //         {
-  //           name: 'testing',
-  //           comment: params.comment
-  //         }
-  //       ]
-  //     }
-  //   }
-  // };
+});
 
+//get comments from db based on restaurant id
+router.get('/restaurant/comments', (req, res) => {
+  // let { params } = req.body;
+  let { id } = req.query;
+  console.log(id, 'line 49 ============');
+  let condition = {restaurant_id: `${id}`}
+
+  db.restaurants.find(condition)
+  .then(response => {
+    console.log(response);
+    res.json(response);
+  })
+  .catch(err => {
+    console.log(err);
+    res.send(err);
+  })
 
 })
 
 //findOneandUpdate createone if data dne: set {upsert: true};
+//when user selects a restaurant, it updates db with new restaurant or returns existing one.
 router.put('/restaurant/selected', (req, res) => {
   let { params } = req.body;
   let { id } = req.body.params;
@@ -96,6 +106,8 @@ router.put('/restaurant/selected', (req, res) => {
 
 })
 
+
+//this just creates new restaurant -- obsolete since findOneAndUpdate creates new.
 //is this still needed? -- method above creates new one if object does not exist. -- temporarily keeping.
 router.post('/restaurant', (req, res) => {
   let { params } = req.body;
@@ -126,6 +138,10 @@ router.post('/restaurant', (req, res) => {
   })
   .then(data => {
     res.json(data);
+  })
+  .catch(err => {
+    console.log(err);
+    res.send(err);
   })
 });
 

@@ -9,6 +9,15 @@ const axios = require('axios');
 // -- like/dislike,
 // -- percentage of likes,
 
+//grabs comment by restaurant id;
+export const getComments = (params) => {
+  // let { id } = param;
+  console.log('grabbing comments', params);
+  return axios.get('http://localhost:8081/restaurant/comments', {
+    params
+  })
+};
+
 //create comment
 export const createComment = (comment) => {
   console.log('add comment');

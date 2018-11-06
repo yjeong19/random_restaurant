@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
-import { checkPost, createPost, createComment } from '../../helpers/routes';
+import { checkPost, createPost, createComment, getComments } from '../../helpers/routes';
 //route from resultspage
 class selectionLandingPage extends Component {
   constructor(props){
@@ -20,10 +20,13 @@ class selectionLandingPage extends Component {
 
   componentDidMount(){
     this.renderSelectedInfo();
+    this.getComments();
+    // console.log(this.props.comments);
   }
 
 
   componentDidUpdate(){
+    // this.renderComments();
   //   console.log(this.props.state.selection);
   //   let info = this.props.state.selection ? this.props.state.selection : '';
   //   if(info !== '') {
@@ -39,6 +42,40 @@ class selectionLandingPage extends Component {
   // }
   }
 
+  getComments(){
+    //gets comments from db and then puts it into commentsReducer
+    // console.log(this.props.state.selection);
+    let info = this.props.state.selection ? this.props.state.selection : '';
+    if(info !== '') {
+      getComments(info)
+      .then(res => {
+        console.log(res.data[0].comments)
+        this.props.addComments(res.data[0].comments);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }else {
+      return null;
+    }
+  };
+
+  renderComments(){
+    return(
+      <div>
+        {this.props.comments.map((comment, i)=>{
+          return(
+            <div className = 'commentCard'>
+              <h1>{comment.user}</h1>
+              <p>{comment.comment}</p>
+              <p>-------------------------------</p>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   renderSelectedInfo(){
     console.log(this.props.state.selection);
     let info = this.props.state.selection ? this.props.state.selection : '';
@@ -46,10 +83,10 @@ class selectionLandingPage extends Component {
       checkPost(info)
       .then(res => {
         console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }else{
       return null;
     }
@@ -76,8 +113,9 @@ class selectionLandingPage extends Component {
     event.preventDefault();
     this.comment.id = this.props.state.selection.id;
     createComment(this.comment)
-    .then(data => {
-      console.log(data);
+    .then(res => {
+      // console.log(res, 'line 117 ============================');
+      this.props.addNewComment(res.data);
     })
     .catch(err => {
       console.log(err);
@@ -120,6 +158,7 @@ class selectionLandingPage extends Component {
         {this.renderInfoSection()}
         <div>
           {this.renderCommentSection()}
+          {this.renderComments()}
         </div>
       </div>
     )
@@ -128,11 +167,14 @@ class selectionLandingPage extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   addUserSelection: (selection) => dispatch(actions.addUserSelection(selection)),
+  addComments: (comments) => dispatch(actions.addComments(comments)),
+  addNewComment: (comment) => dispatch(actions.addNewComment(comment)),
 });
 
 const mapStateToProps = ((state, ownProps) => {
   return {
     state: state.searchResultsReducer,
+    comments: state.commentsReducer,
   }
 })
 
