@@ -31,6 +31,7 @@ export const createPost = (data) => {
 //put method, does it create new one if it exists?
 //this method creates a new restaurant model if it dne, else returns existing i believe.
 export const checkPost = (data) => {
+  console.log("checkpost activated")
   return axios.put(`http://localhost:8081/restaurant/selected`, {
     params: data
   })

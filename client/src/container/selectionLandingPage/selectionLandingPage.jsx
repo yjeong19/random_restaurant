@@ -18,21 +18,41 @@ class selectionLandingPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount(){
+    this.renderSelectedInfo();
+  }
+
 
   componentDidUpdate(){
+  //   console.log(this.props.state.selection);
+  //   let info = this.props.state.selection ? this.props.state.selection : '';
+  //   if(info !== '') {
+  //   checkPost(info)
+  //   .then(res => {
+  //     console.log(res);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // }else{
+  //   return null;
+  // }
+  }
+
+  renderSelectedInfo(){
     console.log(this.props.state.selection);
     let info = this.props.state.selection ? this.props.state.selection : '';
     if(info !== '') {
-    checkPost(info)
-    .then(res => {
-      console.log(res);
+      checkPost(info)
+      .then(res => {
+        console.log(res);
     })
     .catch(err => {
       console.log(err);
     })
-  }else{
-    return null;
-  }
+    }else{
+      return null;
+    }
   }
 
   handleCommentInput(e){
