@@ -8,7 +8,7 @@ const likesReducer = (state = initialState, action) => {
   switch(action.type){
     case ADD_LIKES:
       console.log(action.likes);
-      return Object.assign(state, action.likes);
+      return Object.assign({}, action.likes);
       break;
 
     default:

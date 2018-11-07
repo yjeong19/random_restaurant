@@ -20,7 +20,7 @@ class selectionLandingPage extends Component {
     };
 
     //bind events
-    this.handleLikes = this.handleLikes.bind(this);
+    this.updateLikes = this.updateLikes.bind(this);
     this.handleCommentInput = this.handleCommentInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,19 +28,21 @@ class selectionLandingPage extends Component {
   componentDidMount(){
     // this.renderSelectedInfo();
     this.getCommentsAndLikes();
-    console.log(this.props.comments);
+    console.log(this.props.likes.likes);
   }
 
 
   componentDidUpdate(){
+    console.log(this.props.likes);
   }
 
-  handleLikes(e){
+  updateLikes(e){
     console.log(e.target.id);
     console.log(this.props.state)
     postLikes(this.props.state.selection.id, e.target.id)
     .then(res => {
       console.log(res);
+      this.props.addLikes(res.data);
     })
     .catch(err => {
       console.log(err);
@@ -55,7 +57,7 @@ class selectionLandingPage extends Component {
     if(info !== '') {
       getComments(info)
       .then(res => {
-        console.log(res.data[0].likes)
+        // console.log(res.data[0].likes)
         this.props.addComments(res.data[0].comments);
         this.props.addLikes(res.data[0].likes);
       })
@@ -83,21 +85,21 @@ class selectionLandingPage extends Component {
     )
   }
 
-  renderSelectedInfo(){
-    console.log(this.props.state.selection);
-    let info = this.props.state.selection ? this.props.state.selection : '';
-    if(info !== '') {
-      checkPost(info)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    }else{
-      return null;
-    }
-  }
+  // renderSelectedInfo(){
+  //   console.log(this.props.state.selection);
+  //   let info = this.props.state.selection ? this.props.state.selection : '';
+  //   if(info !== '') {
+  //     checkPost(info)
+  //     .then(res => {
+  //       console.log(res);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  //   }else{
+  //     return null;
+  //   }
+  // }
 
   handleCommentInput(e){
     // console.log(this.);
@@ -132,8 +134,8 @@ class selectionLandingPage extends Component {
   renderCommentSection(){
     return(
       <div>
-        <button id = 'like' onClick = {this.handleLikes}>Like</button>
-        <button id = 'dislike' onClick = {this.handleLikes}>Dislike</button>
+        <button id = 'like' onClick = {this.updateLikes}>Like</button>
+        <button id = 'dislike' onClick = {this.updateLikes}>Dislike</button>
         {/* temporarily name, add auth later */}
         <input id = 'user' placeholder = 'user' onChange = {this.handleCommentInput}/>
         <input id = 'comment' placeholder = 'comment' onChange = {this.handleCommentInput}/>
@@ -154,6 +156,9 @@ class selectionLandingPage extends Component {
           `${info.location.address1} \n ${info.location.city}, ${info.location.state} ${info.location.zip_code}` : ''}</p>
         <p>{info !== '' ? info.price : ''}</p>
         <p>{info !== '' ? info.rating : ''}</p>
+        <p id = 'likes'>{this.props.likes.likes}</p>
+        <p id = 'dislikes'>{this.props.likes.dislikes}</p>
+        <p id = 'percentage'>{this.props.likes.likes !== undefined && this.props.likes.dislikes/this.props.likes.likes > 0 ? `${(this.props.likes.dislikes/this.props.likes.likes).toString().slice(2, 4)}%` : '0'}</p>
       </div>
     )
   }
