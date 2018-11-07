@@ -8,7 +8,8 @@ let initialReducer = [];
 const commentsReducer = ((state = initialReducer, action) => {
   switch(action.type){
     case ADD_COMMENTS:
-      return [...state, ...action.comments];
+      // let empty = state.slice(state.length)
+      return state.slice(state.length).concat(action.comments);
       break;
 
     case ADD_NEW_COMMENT:
