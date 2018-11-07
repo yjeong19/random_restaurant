@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Searchbar from '../../components/searchbar';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import ChoiceCards from '../../components/choiceCards';
@@ -58,14 +57,9 @@ class resultsPage extends Component {
   render(){
     return(
       <div>
-        <Searchbar
-          addSearchResults = { this.props.addSearchResults }
-          addRandomRestaurant = { this.props.addRandomRestaurant }
-        />
-        {/* <SelectionLandingPage /> */}
         <Link to = {'/restaurant_landing'}>
-        <div>{this.renderCards()}</div>
-      </Link>
+          <div>{this.renderCards()}</div>
+        </Link>
       </div>
     )
   }
@@ -74,8 +68,6 @@ class resultsPage extends Component {
 
 //redux setup below
 const mapDispatchToProps = (dispatch) => ({
-  addSearchResults: (results) => dispatch(actions.addSearchResults(results)),
-  addRandomRestaurant: (results) => dispatch(actions.addRandomRestaurant(results)),
   addUserSelection: (selection) => dispatch(actions.addUserSelection(selection)),
 });
 

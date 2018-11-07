@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import fetchAPI from '../../helpers/yelp_api';
-
+import * as actions from '../../redux/actions';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 class searchbar extends Component {
   constructor(props){
@@ -58,13 +60,31 @@ class searchbar extends Component {
   render(){
     return(
       <div>
+        <h1>this is container</h1>
         <input placeholder = 'categories' id = 'categories' onChange = {this.handleSearchInput}></input>
         <input placeholder = 'location' id = 'location' onChange = {this.handleSearchInput}></input>
-        <button id = 'submit' onClick = {this.handleSubmit}>submit</button>
-        <button id ='random' onClick = {this.handleSubmit}>random</button>
+        <Link to = {'/results'}>
+          <button id = 'submit' onClick = {this.handleSubmit}>submit</button>
+          <button id ='random' onClick = {this.handleSubmit}>random</button>
+        </Link>
       </div>
     )
   }
 }
 
-export default searchbar;
+const mapDispatchToProps = (dispatch) => ({
+  addSearchResults: (results) => dispatch(actions.addSearchResults(results)),
+  addRandomRestaurant: (results) => dispatch(actions.addRandomRestaurant(results)),
+});
+
+const mapStateToProps = ((state, ownProps) => {
+  // console.log(state);
+  return {
+    state,
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(searchbar);

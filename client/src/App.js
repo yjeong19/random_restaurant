@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Searchbar from './components/searchbar';
+import Searchbar from './container/searchbar';
 import ResultsPage from './container/resultsPage';
 import SelectionPage from './container/selectionLandingPage';
 import { Route, BrowserRouter } from 'react-router-dom';
@@ -11,8 +11,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <h1>hello</h1>
-            <Route exact path = '/' component = {ResultsPage} />
+            <Searchbar />
+            <Route exact path = '/results' component = {ResultsPage} />
             <Route path = '/restaurant_landing' component = {SelectionPage} />
           {/* <Searchbar /> */}
         </div>
