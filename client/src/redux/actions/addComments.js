@@ -7,7 +7,7 @@ import {
 const addComments = (comments) => {
   return {
     type: ADD_COMMENTS,
-    comments
+    comments,
   }
 };
 

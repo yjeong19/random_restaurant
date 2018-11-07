@@ -8,12 +8,22 @@ const axios = require('axios');
 // -- posting comments,
 // -- like/dislike,
 // -- percentage of likes,
+const url = 'http://localhost:8081';
+
+//likes/dislikes
+export const postLikes = (id, like) => {
+  console.log('getting likes, or posting', like);
+  return axios.put(`${url}/restaurant/likes`, {
+    id,
+    like,
+  })
+}
 
 //grabs comment by restaurant id;
 export const getComments = (params) => {
   // let { id } = param;
   console.log('grabbing comments', params);
-  return axios.get('http://localhost:8081/restaurant/comments', {
+  return axios.get(`${url}/restaurant/comments`, {
     params
   })
 };
@@ -22,7 +32,7 @@ export const getComments = (params) => {
 export const createComment = (comment) => {
   console.log('add comment');
   console.log(comment);
-  return axios.put(`http://localhost:8081/restaurant/comment`, {
+  return axios.put(`${url}/restaurant/comment`, {
     params: comment,
   })
 };
@@ -32,7 +42,7 @@ export const createComment = (comment) => {
 export const createPost = (data) => {
   console.log('create post activated');
   console.log(data);
-  return axios.post(`http://localhost:8081/restaurant`,{
+  return axios.post(`${url}/restaurant`,{
     params: data
   })
 };
@@ -41,7 +51,7 @@ export const createPost = (data) => {
 //this method creates a new restaurant model if it dne, else returns existing i believe.
 export const checkPost = (data) => {
   console.log("checkpost activated")
-  return axios.put(`http://localhost:8081/restaurant/selected`, {
+  return axios.put(`${url}/restaurant/selected`, {
     params: data
   })
 };

@@ -16,6 +16,24 @@ router.get('/restaurant/find', (req, res) => {
   });
 });
 
+//adding to likes
+router.put('/restaurant/likes', (req,res) => {
+  let { id, like } = req.body;
+  let condition = {restaurant_id: `${id}`};
+  console.log(like);
+  let update = like === 'like' ? {$inc: {"likes.likes": 1}} : {$inc: {"likes.dislikes": 1}};
+  // console.log(req.body, 'line 23 ============')
+  db.restaurants.findOneAndUpdate(condition, update, {new: true})
+  .then(data => {
+    console.log(data.likes);
+    res.json(data.likes);
+  })
+  .catch(err => {
+    console.log(err)
+    res.json(err);
+  })
+});
+
 //updates existing db and add comments on submit
 router.put('/restaurant/comment', (req,res) => {
   let { params } = req.body;
@@ -37,7 +55,7 @@ router.put('/restaurant/comment', (req,res) => {
   .then(data => {
     // console.log(data.comments[(data.comments.length - 1)])
     //this will only return the most recent comment.
-    //will this cause any issues if i am just pulling last comment -- does it need to be found by id? 
+    //will this cause any issues if i am just pulling last comment -- does it need to be found by id?
     res.json(data.comments[data.comments.length - 1]);
   })
   .catch(err => {
