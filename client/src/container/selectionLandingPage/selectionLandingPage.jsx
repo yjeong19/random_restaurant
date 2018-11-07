@@ -87,6 +87,9 @@ class selectionLandingPage extends Component {
     )
   }
 
+
+  //function below creates newly selected restaurants, if it had not been created in DB alraedy.
+  //function is run at componentdidmount to check existance.
   renderSelectedInfo(){
     console.log(this.props.state.selection);
     let info = this.props.state.selection ? this.props.state.selection : '';
@@ -160,7 +163,7 @@ class selectionLandingPage extends Component {
         <p>{info !== '' ? info.rating : ''}</p>
         <p id = 'likes'>{this.props.likes.likes}</p>
         <p id = 'dislikes'>{this.props.likes.dislikes}</p>
-        <p id = 'percentage'>{this.props.likes.likes !== undefined && this.props.likes.dislikes/this.props.likes.likes > 0 ? `${(this.props.likes.dislikes/this.props.likes.likes).toString().slice(2, 4)}%` : '0'}</p>
+        <p id = 'percentage'>{this.props.likes.likes !== undefined && this.props.likes.dislikes/this.props.likes.likes > 0 ? `${(1 - (this.props.likes.dislikes/this.props.likes.likes)).toString().slice(2, 4)}%` : '0'}</p>
       </div>
     )
   }
