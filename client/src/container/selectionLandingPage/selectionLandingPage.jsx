@@ -26,14 +26,15 @@ class selectionLandingPage extends Component {
   }
 
   componentDidMount(){
-    // this.renderSelectedInfo();
+    this.renderSelectedInfo();
     this.getCommentsAndLikes();
-    console.log(this.props.likes.likes);
+    console.log('selection landing page mounted');
   }
 
 
   componentDidUpdate(){
     console.log(this.props.likes);
+    // this.getCommentsAndLikes();
   }
 
   updateLikes(e){
@@ -57,9 +58,10 @@ class selectionLandingPage extends Component {
     if(info !== '') {
       getComments(info)
       .then(res => {
-        // console.log(res.data[0].likes)
-        this.props.addComments(res.data[0].comments);
-        this.props.addLikes(res.data[0].likes);
+        console.log(res.data[0], 'line 61 ========')
+        res.data[0] !== undefined ? this.props.addComments(res.data[0].comments) : this.props.addComments([])
+        // console.log(typeof(res.data[0].likes));
+        res.data[0] !== undefined ? this.props.addLikes(res.data[0].likes) : this.props.addLikes({});
       })
       .catch(err => {
         console.log(err);
@@ -85,21 +87,21 @@ class selectionLandingPage extends Component {
     )
   }
 
-  // renderSelectedInfo(){
-  //   console.log(this.props.state.selection);
-  //   let info = this.props.state.selection ? this.props.state.selection : '';
-  //   if(info !== '') {
-  //     checkPost(info)
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  //   }else{
-  //     return null;
-  //   }
-  // }
+  renderSelectedInfo(){
+    console.log(this.props.state.selection);
+    let info = this.props.state.selection ? this.props.state.selection : '';
+    if(info !== '') {
+      checkPost(info)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }else{
+      return null;
+    }
+  }
 
   handleCommentInput(e){
     // console.log(this.);

@@ -9,6 +9,7 @@ const commentsReducer = ((state = initialReducer, action) => {
   switch(action.type){
     case ADD_COMMENTS:
       // let empty = state.slice(state.length)
+
       return state.slice(state.length).concat(action.comments);
       break;
 
