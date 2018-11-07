@@ -57,6 +57,25 @@ class searchbar extends Component {
     })
   };
 
+  renderPriceChoice(){
+    return (
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" name="options" id="$" autocomplete="off" checked />$
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="$$" autocomplete="off" />$$
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="$$$" autocomplete="off" />$$$
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="$$$$" autocomplete="off" />$$$$
+        </label>
+      </div>
+    )
+  }
+
   render(){
     return(
       <div>
@@ -67,6 +86,7 @@ class searchbar extends Component {
           <button id = 'submit' onClick = {this.handleSubmit}>submit</button>
           <button id ='random' onClick = {this.handleSubmit}>random</button>
         </Link>
+        <div>{this.renderPriceChoice()}</div>
       </div>
     )
   }
