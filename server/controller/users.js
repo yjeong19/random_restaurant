@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const db = require('../models');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 
 router.post('/register', (req, res) => {
@@ -24,10 +26,20 @@ router.post('/register', (req, res) => {
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, ((err, hash) => {
           if(err) throw err;
-          console.log('hasing activated', newUser.password, hash);
+          // console.log('hasing activated', newUser.password, hash);
           newUser.password = hash;
-          newUser.save()
-            .then(userInfo => res.json(userInfo))
+          newUser
+            .save()
+            .then(userInfo => {
+              // res.json(userInfo))
+              const payload = { id: userInfo.id, name: userInfo.name }
+              jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                res.json({
+                  success: true,
+                  token: 'Bearer' + token,
+                });
+              });
+            })
             .catch(err => console.log(err))
         }))
       })
@@ -48,7 +60,14 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password)
       .then(isMatch => {
         if(isMatch) {
-          res.json({msg: 'success'});
+          const payload = {id: user.id, name: user.name};
+
+          jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+              res.json({
+                success: true,
+                token: 'Bearer' + token,
+              });
+            });
         }else{
         return res.status(404).json({password: 'incorrect password'});
       }
