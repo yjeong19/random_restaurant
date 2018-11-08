@@ -1,0 +1,59 @@
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const db = require('../models');
+
+
+router.post('/register', (req, res) => {
+  console.log(req.body.email)
+  db.user.findOne({ email: req.body.email })
+  .then(user => {
+    //checks if user with email exists
+    if(user) {
+      return res.status(400).json({
+        email: 'This email has been used',
+      })
+    }else{
+      //if not, run this code to save info -- salt password
+      const newUser = new db.user({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+      })
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, ((err, hash) => {
+          if(err) throw err;
+          console.log('hasing activated', newUser.password, hash);
+          newUser.password = hash;
+          newUser.save()
+            .then(userInfo => res.json(userInfo))
+            .catch(err => console.log(err))
+        }))
+      })
+    }
+  })
+});
+
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
+  console.log(email, password);
+
+  db.user.findOne({email})
+    .then(user => {
+      if(!user) {
+        return res.status(404).json({email: 'the user email does not exist'});
+    }
+
+    bcrypt.compare(password, user.password)
+      .then(isMatch => {
+        if(isMatch) {
+          res.json({msg: 'success'});
+        }else{
+        return res.status(404).json({password: 'incorrect password'});
+      }
+    })
+  })
+});
+
+module.exports = router;

@@ -9,6 +9,7 @@ require('dotenv').config();
 const yelp = require('yelp-fusion');
 const yelpAPI = require('./api/yelp');
 const routes = require('./controller/routes');
+const users = require('./controller/users');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,6 +19,8 @@ app.use(cors());
 app.use('/yelp', yelpAPI);
 //api Routes
 app.use('/', routes);
+//registration routes
+app.use('/users', users);
 
 
 

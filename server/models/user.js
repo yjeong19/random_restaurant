@@ -6,22 +6,23 @@ const userSchema = new Schema({
   username: {
     name: String,
     // required: true,
+    type: String,
     // unique: true,
   },
   email: {
     address: String,
-    // required: true,
-    // unique: true,
+    required: true,
+    unique: true,
+    type: String,
   },
-  restaurants: {
-    liked: [Object],
-    disliked: [Object],
+  password: {
+    type: String,
+    required: true,
   },
-  posts: {
-    comment: Array,
-    likes: Array,
-    disliked: Array,
-  },
+  date: {
+    type: Date,
+    default: Date.now,
+  }
   //do passwords later
 });
 
