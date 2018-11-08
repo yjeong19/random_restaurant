@@ -10,10 +10,13 @@ const yelp = require('yelp-fusion');
 const yelpAPI = require('./api/yelp');
 const routes = require('./controller/routes');
 const users = require('./controller/users');
+const passport = require('passport');
+require('./config/passport')(passport);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
+app.use(passport.initialize());
 
 //yelp routes
 app.use('/yelp', yelpAPI);
