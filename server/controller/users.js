@@ -80,7 +80,12 @@ router.post('/login', (req, res) => {
 
 //create private route;
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.json({msg: 'success'});
+  console.log(req)
+  res.json({
+    id: req.user.id,
+    name: req.user.name,
+    email: req.user.email,
+  });
 })
 
 module.exports = router;

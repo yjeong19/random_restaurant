@@ -12,5 +12,16 @@ module.exports = passport => {
   passport.use(new JwtStrategy(options, (payload, done) => {
     // This payload includes the items we specified earlier
     console.log(payload);
+    User.findById(jwt_payload.id)
+      .then(user => {
+        if(user) {
+          return done(null, user);
+        }
+
+        return done(null, false);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }));
 };
