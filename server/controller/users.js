@@ -38,7 +38,7 @@ router.post('/register', (req, res) => {
               jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                 res.json({
                   success: true,
-                  token: 'Bearer' + token,
+                  token: 'Bearer ' + token,
                 });
               });
             })
@@ -68,7 +68,7 @@ router.post('/login', (req, res) => {
           jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
               res.json({
                 success: true,
-                token: 'Bearer' + token,
+                token: 'Bearer ' + token,
               });
             });
         }else{
@@ -78,9 +78,9 @@ router.post('/login', (req, res) => {
   })
 });
 
-//create private route;
+//create logged in route;
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
-  console.log(req)
+  // console.log(req)
   res.json({
     id: req.user.id,
     name: req.user.name,
