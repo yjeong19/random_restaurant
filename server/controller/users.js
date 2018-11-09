@@ -6,10 +6,20 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 const passport = require('passport');
 
+//validtaion
+const validateRegisterInput = require('../validator/register');
+const validateLoginInput = require('../validator/login');
+
 
 //this registers users
 router.post('/register', (req, res) => {
-  console.log(req.body.email)
+  // console.log(req.body.email)
+  const { errors, isValid } = validateRegisterInput(req.body);
+  console.log(errors, isValid, req.body);
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
+
   db.user.findOne({ email: req.body.email })
   .then(user => {
     //checks if user with email exists
@@ -52,7 +62,12 @@ router.post('/register', (req, res) => {
 //this logs in users
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
+  const { errors, isValid } = validateLoginInput(req.body);
+  // console.log(email, password);
+
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
 
   db.user.findOne({email})
     .then(user => {
