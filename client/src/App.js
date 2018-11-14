@@ -10,7 +10,7 @@ import './style.css';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter className='main_page'>
         <div className="App container main_page" >
             <Searchbar />
             <Route exact path = '/results' component = {ResultsPage} />

@@ -14,7 +14,8 @@ router.get('/search', (req, res) => {
     term: req.query.term,
     location: req.query.location,
     categories: req.query.categories,
-    // price: req.query.price,
+    price: parseInt(req.query.price),
+    limit: 50,
   }).then(response => {
     res.send(response.jsonBody.businesses);
   }).catch(e => {
@@ -31,6 +32,7 @@ router.get('/random', (req, res) => {
     term: req.query.term,
     location: req.query.location,
     categories: req.query.categories,
+    price: parseInt(req.query.price),
     // price: req.query.price,
     limit: req.query.limit,
   }).then(response => {

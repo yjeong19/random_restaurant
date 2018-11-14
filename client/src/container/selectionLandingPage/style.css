@@ -11,3 +11,32 @@
 .restaurant_name{
   text-align: center;
 }
+
+.like_button{
+  background-color: #F8E9A1;
+  border: 2px solid;
+  margin: 0px 5px;
+}
+
+.dislike_button{
+  background-color: #F76C6C;
+  border: 2px solid;
+  margin: 0px 5px;
+}
+
+.like_container{
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+#map {
+   width: 100%;
+   height: 400px;
+   background-color: grey;
+ }
+
+ #mapid {
+   height: 50%;
+   width: 100%;
+}

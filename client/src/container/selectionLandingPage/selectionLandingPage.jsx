@@ -9,6 +9,8 @@ import {
   postLikes,
 } from '../../helpers/routes';
 import './style.css'
+import L from 'leaflet';
+
 
 //route from resultspage
 class selectionLandingPage extends Component {
@@ -21,21 +23,27 @@ class selectionLandingPage extends Component {
       user: null
     };
 
+    this.location = {};
+
     //bind events
     this.updateLikes = this.updateLikes.bind(this);
     this.handleCommentInput = this.handleCommentInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderLeafletMap = this.renderLeafletMap.bind(this);
   }
 
+
+
   componentDidMount(){
+    this.renderLeafletMap();
     this.renderSelectedInfo();
     this.getCommentsAndLikes();
-    console.log('selection landing page mounted');
+    console.log('selection landing page mounted', this.props);
   }
 
 
   componentDidUpdate(){
-    console.log(this.props.likes);
+    console.log(this.props.state.selection.coordinates);
     // this.getCommentsAndLikes();
   }
 
@@ -93,6 +101,7 @@ class selectionLandingPage extends Component {
   handleSubmit(event){
     event.preventDefault();
     this.comment.id = this.props.state.selection.id;
+    // console.log(this.comment);
     createComment(this.comment)
     .then(res => {
       // console.log(res, 'line 117 ============================');
@@ -144,20 +153,36 @@ class selectionLandingPage extends Component {
 
   renderCommentForm(){
     return(
-      <div>
-        <div>
-          <button className = 'like_button' onClick = {this.updateLikes}>Like</button>
-          <button className = 'btn-danger dislike_button' onClick = {this.updateLikes}>Dislike</button>
-        </div>
         <div>
           {/* temporarily name, add auth later */}
-          <input className = 'user' placeholder = 'user' onChange = {this.handleCommentInput}/>
-          <input className = 'comment' placeholder = 'comment' onChange = {this.handleCommentInput}/>
+          <input className = 'form-control comment_name' id='user' placeholder = 'user' onChange = {this.handleCommentInput}/>
+          <textarea className = 'form-control comment' id='comment' placeholder = 'comment' onChange = {this.handleCommentInput}/>
           <button onClick = {this.handleSubmit}>submit</button>
         </div>
-      </div>
     );
   };
+
+  renderLeafletMap(){
+    console.log(this.props.state.selection);
+    let coord = this.props.state.selection !== null ? this.props.state.selection.coordinates : '';
+    let { latitude, longitude } = coord;
+    // let long = coor.longitude !== null ? coor.longitude: 0;
+
+    let map = L.map('mapid', {
+    center: [latitude === undefined ? 0 : latitude, longitude === undefined ? 0 : longitude],
+    zoom: 13
+    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // return(
+    //   <div id='mapid'>
+    //     <h1>MAP CONTAINER</h1>
+    //
+    //   </div>
+    // )
+  }
 
 
   renderInfoSection(){
@@ -171,10 +196,14 @@ class selectionLandingPage extends Component {
           <p className='rest_address'>{info !== '' ?
             `${info.location.address1} \n ${info.location.city}, ${info.location.state} ${info.location.zip_code}` : ''}</p>
           <p className='yelp_price'>{`Yelp Price: ${info.price === undefined ? 'No Rating' : info.price}`}</p>
-          <p>{info !== '' ? info.rating : ''}</p>
+          <p>{`Yelp Rating: ${info.rating === undefined ? 'No Rating' : info.price}`}</p>
           <p className = 'likes'>{`Liked: ${this.props.likes.likes === undefined ? 'No Rating': this.props.likes.likes}`}</p>
           <p className = 'dislikes'>{`Disliked: ${this.props.likes.dislikes === undefined ? 'No Rating': this.props.likes.dislikes}`}</p>
           <p className = 'percentage'>{`Percent Liked ${this.props.likes.likes !== undefined && this.props.likes.dislikes/this.props.likes.likes > 0 ? `${(1 - (this.props.likes.dislikes/this.props.likes.likes)).toString().slice(2, 4)}%` : '0'}`}</p>
+          <div className='like_container'>
+            <button className = 'btn like_button' id='likes' onClick = {this.updateLikes}>Like</button>
+            <button className = 'btn dislike_button' id='dislikes' onClick = {this.updateLikes}>Dislike</button>
+          </div>
         </div>
       </div>
     );
@@ -183,11 +212,13 @@ class selectionLandingPage extends Component {
   render(){
     // let info = this.props.state.selection ? this.props.state.selection : '';
     return(
-      <div className='info_container'>
-        {this.renderInfoSection()}
-        <div>
+      <div className='info_container row'>
+        <div className ='col-md-6'>{this.renderInfoSection()}</div>
+        <div className='col-md-6'>
+          <div id='mapid'>MAP CONTAINER</div>
           {this.renderCommentForm()}
           {this.renderComments()}
+          {/* {this.renderLeafletMap()} */}
         </div>
       </div>
     )

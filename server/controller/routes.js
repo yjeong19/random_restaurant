@@ -20,8 +20,8 @@ router.get('/restaurant/find', (req, res) => {
 router.put('/restaurant/likes', (req,res) => {
   let { id, like } = req.body;
   let condition = {restaurant_id: `${id}`};
-  console.log(like);
-  let update = like === 'like' ? {$inc: {"likes.likes": 1}} : {$inc: {"likes.dislikes": 1}};
+  console.log(like, 'line23------');
+  let update = like === 'likes' ? {$inc: {"likes.likes": 1}} : {$inc: {"likes.dislikes": 1}};
   // console.log(req.body, 'line 23 ============')
   db.restaurants.findOneAndUpdate(condition, update, {new: true})
   .then(data => {
@@ -40,6 +40,7 @@ router.put('/restaurant/comment', (req,res) => {
   let { id, comment, user } = req.body.params;
   let condition = {restaurant_id: `${id}`};
   console.log(comment, id, condition)
+  console.log(req.body, 'line 43-----------------')
   //temporarily sending name and comment -- change based on auth later on
   db.restaurants.findOneAndUpdate(condition, {
     $push: {

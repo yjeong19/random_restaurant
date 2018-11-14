@@ -6,7 +6,7 @@ const fetchAPI = (searchType, searchbarInput) => {
       term: searchbarInput.term,
       location: searchbarInput.location,
       categories: searchbarInput.categories,
-      // price:
+      price: searchbarInput.price,
     }
   })
   // .then((response) => {

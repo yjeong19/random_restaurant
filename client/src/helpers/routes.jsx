@@ -12,7 +12,7 @@ const url = 'http://localhost:8081';
 
 //likes/dislikes
 export const postLikes = (id, like) => {
-  console.log('getting likes, or posting', like);
+  console.log('getting likes, or posting',id, like);
   return axios.put(`${url}/restaurant/likes`, {
     id,
     like,

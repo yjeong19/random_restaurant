@@ -15,15 +15,33 @@ class searchbar extends Component {
       term: '',
       location: '',
       categories: 'restaurants',
+      price: null,
     };
+
+    //fix toggle active later
+    this.toggleActive = {
+      active: "btn btn-secondary active",
+      not_active: "btn btn-secondary"
+    }
 
     //bind events
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePriceChoice = this.handlePriceChoice.bind(this);
+    this.togglePrice = this.togglePrice.bind(this);
   }
 
   componentDidMount(){
     console.log(this.props);
+  }
+
+  componentDidUpdate(){
+
+  }
+
+  togglePrice(e){
+    console.log(this.id)
+    e.target.id == this.searchbarInput.price ? e.target.className = "btn btn-secondary active" : e.target.className = "btn btn-secondary";
   }
 
   //this makes keystroke in search bar to searchbarInput object
@@ -43,6 +61,14 @@ class searchbar extends Component {
     // console.log(this.searchbarInput);
   }
 
+  handlePriceChoice(e){
+    this.searchbarInput.price = e.target.id;
+    this.togglePrice(e);
+    // this.searchbarInput.price === e.target.id ? e.target.className = "btn btn-secondary active" : e.target.className = "btn btn-secondary";
+    console.log(this.searchbarInput);
+
+  }
+
   //makes api call to yelpAPI in /controller/yelp_api.jsx
   //api returns either random option or a list of options
   handleSubmit(e){
@@ -59,27 +85,24 @@ class searchbar extends Component {
   };
 
   renderPriceChoice(){
+    const stars = ['$', '$$', '$$$', '$$$$'];
+
     return (
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="$" autocomplete="off" checked />$
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="$$" autocomplete="off" />$$
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="$$$" autocomplete="off" />$$$
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="$$$$" autocomplete="off" />$$$$
-        </label>
+      <div class="btn-group btn-group-toggle price_choice" data-toggle="buttons">
+        {stars.map((num, i) => {
+          return(
+            <label className="btn btn-secondary" onClick={this.handlePriceChoice}>
+              <input type="radio" name="options" id={i+1} />{num}
+            </label>
+          )
+        })}
       </div>
     )
   }
 
   render(){
     return(
-      <div className='jumbotron search_main'>
+      <div className='jumbotron search_main verticle-center'>
         <h1 className='pick_something'>Pick Something</h1>
         <nav className="navbar search_container" >
           <form class="search_form form-inline">
@@ -88,8 +111,8 @@ class searchbar extends Component {
             <div>{this.renderPriceChoice()}</div>
 
           <Link to = {'/results'}>
-            <button class="btn btn-outline-success my-2 my-sm-0" id = 'submit' onClick = {this.handleSubmit}>Search</button>
-            <button class="btn btn-outline-success my-2 my-sm-0" id ='random' onClick = {this.handleSubmit}>Randomize</button>
+            <button class="btn search_button my-2 my-sm-0" id = 'submit' onClick = {this.handleSubmit}>Search</button>
+            <button class="btn search_button my-2 my-sm-0" id ='random' onClick = {this.handleSubmit}>Randomize</button>
           </Link>
           {/* <div>{this.renderPriceChoice()}</div> */}
           </form>
