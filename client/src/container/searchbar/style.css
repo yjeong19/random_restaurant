@@ -1,0 +1,32 @@
+#searchbar{
+  /* background-color: purple; */
+  border-color: red;
+}
+
+.pick_something{
+  text-align: center;
+
+}
+
+.search_main{
+  background-color: #7CDBD5;
+}
+
+.search_container{
+  background-color: white;
+  border-radius: 10px;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.search_form{
+  align-items: flex-end;
+  background-color: inherit;
+  align-content: center;
+}
+
+/* .nav.navbar.bg-light.search_container{
+  background-color: pur;
+} */

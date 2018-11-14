@@ -3,6 +3,7 @@ import fetchAPI from '../../helpers/yelp_api';
 import * as actions from '../../redux/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
+import './style.css';
 
 class searchbar extends Component {
   constructor(props){
@@ -78,15 +79,21 @@ class searchbar extends Component {
 
   render(){
     return(
-      <div>
-        <h1>this is container</h1>
-        <input placeholder = 'categories' id = 'categories' onChange = {this.handleSearchInput}></input>
-        <input placeholder = 'location' id = 'location' onChange = {this.handleSearchInput}></input>
-        <Link to = {'/results'}>
-          <button id = 'submit' onClick = {this.handleSubmit}>submit</button>
-          <button id ='random' onClick = {this.handleSubmit}>random</button>
-        </Link>
-        <div>{this.renderPriceChoice()}</div>
+      <div className='jumbotron search_main'>
+        <h1 className='pick_something'>Pick Something</h1>
+        <nav className="navbar search_container" >
+          <form class="search_form form-inline">
+            <input class="form-control mr-sm-2" placeholder = 'categories' id = 'categories' onChange = {this.handleSearchInput}/>
+            <input class="form-control mr-sm-2" placeholder = 'location' id = 'location' onChange = {this.handleSearchInput}/>
+            <div>{this.renderPriceChoice()}</div>
+
+          <Link to = {'/results'}>
+            <button class="btn btn-outline-success my-2 my-sm-0" id = 'submit' onClick = {this.handleSubmit}>Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" id ='random' onClick = {this.handleSubmit}>Randomize</button>
+          </Link>
+          {/* <div>{this.renderPriceChoice()}</div> */}
+          </form>
+        </nav>
       </div>
     )
   }

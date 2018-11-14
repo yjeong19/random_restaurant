@@ -8,6 +8,8 @@ import {
   getComments,
   postLikes,
 } from '../../helpers/routes';
+import './style.css'
+
 //route from resultspage
 class selectionLandingPage extends Component {
   constructor(props){
@@ -71,21 +73,55 @@ class selectionLandingPage extends Component {
     }
   };
 
+  handleCommentInput(e){
+    // console.log(this.);
+    switch(e.target.id){
+      case 'user':
+        this.comment.user = e.target.value;
+        break;
+
+      case 'comment':
+        this.comment.comment = e.target.value;
+        break;
+
+      default:
+        return;
+    }
+    // this.comment.comment = e.target.value;
+  };
+
+  handleSubmit(event){
+    event.preventDefault();
+    this.comment.id = this.props.state.selection.id;
+    createComment(this.comment)
+    .then(res => {
+      // console.log(res, 'line 117 ============================');
+      this.props.addNewComment(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  };
+
   renderComments(){
     return(
       <div>
         {this.props.comments.map((comment, i)=>{
           return(
-            <div className = 'commentCard'>
-              <h1>{comment.user}</h1>
-              <p>{comment.comment}</p>
-              <p>-------------------------------</p>
+            <div className = 'commentCard row'>
+              <h1 className='comment_user col-lg-12'>{comment.user}</h1>
+              <img className='user_img col-lg-2' src='#' width='20px' height = '20px' />
+              <div className='comment_info col-lg-6'>
+                <p className='user_comment'>{comment.comment}</p>
+                {/* temp using current date */}
+                <p className='comment_date'>{Date.now().toString()}</p>
+              </div>
             </div>
           )
         })}
       </div>
     )
-  }
+  };
 
 
   //function below creates newly selected restaurants, if it had not been created in DB alraedy.
@@ -103,84 +139,60 @@ class selectionLandingPage extends Component {
       })
     }else{
       return null;
-    }
-  }
+    };
+  };
 
-  handleCommentInput(e){
-    // console.log(this.);
-    switch(e.target.id){
-      case 'user':
-        this.comment.user = e.target.value;
-        break;
-
-      case 'comment':
-        this.comment.comment = e.target.value;
-        break;
-
-      default:
-        return;
-    }
-    // this.comment.comment = e.target.value;
-  }
-
-  handleSubmit(event){
-    event.preventDefault();
-    this.comment.id = this.props.state.selection.id;
-    createComment(this.comment)
-    .then(res => {
-      // console.log(res, 'line 117 ============================');
-      this.props.addNewComment(res.data);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
-  renderCommentSection(){
+  renderCommentForm(){
     return(
       <div>
-        <button id = 'like' onClick = {this.updateLikes}>Like</button>
-        <button id = 'dislike' onClick = {this.updateLikes}>Dislike</button>
-        {/* temporarily name, add auth later */}
-        <input id = 'user' placeholder = 'user' onChange = {this.handleCommentInput}/>
-        <input id = 'comment' placeholder = 'comment' onChange = {this.handleCommentInput}/>
-        <button onClick = {this.handleSubmit}>submit</button>
+        <div>
+          <button className = 'like_button' onClick = {this.updateLikes}>Like</button>
+          <button className = 'btn-danger dislike_button' onClick = {this.updateLikes}>Dislike</button>
+        </div>
+        <div>
+          {/* temporarily name, add auth later */}
+          <input className = 'user' placeholder = 'user' onChange = {this.handleCommentInput}/>
+          <input className = 'comment' placeholder = 'comment' onChange = {this.handleCommentInput}/>
+          <button onClick = {this.handleSubmit}>submit</button>
+        </div>
       </div>
-    )
-  }
+    );
+  };
 
 
   renderInfoSection(){
     let info = this.props.state.selection ? this.props.state.selection : '';
     return(
-      <div>
-        <h1>SELECTION LANDING PAGE</h1>
-        <p>{info !== '' ? info.name : ''}</p>
-        <img src = {info !== '' ? info.image_url : ''} width = '200px' height = '200px'/>
-        <p>{info !== '' ?
-          `${info.location.address1} \n ${info.location.city}, ${info.location.state} ${info.location.zip_code}` : ''}</p>
-        <p>{info !== '' ? info.price : ''}</p>
-        <p>{info !== '' ? info.rating : ''}</p>
-        <p id = 'likes'>{this.props.likes.likes}</p>
-        <p id = 'dislikes'>{this.props.likes.dislikes}</p>
-        <p id = 'percentage'>{this.props.likes.likes !== undefined && this.props.likes.dislikes/this.props.likes.likes > 0 ? `${(1 - (this.props.likes.dislikes/this.props.likes.likes)).toString().slice(2, 4)}%` : '0'}</p>
+      <div className='info_section_wrapper row'>
+        <h1 className='restaurant_name col-lg-12'>{info !== '' ? info.name : ''}</h1>
+        <img src = {info !== '' ? info.image_url : ''} className='rest_img col-md-4 col-xs-6' width = '200px' height = '200px'/>
+        <div className='landing_info_section col-md-4 col-sm-6'>
+          {/* POSSIBLY ADD MAPS FOR REST OF ROW */}
+          <p className='rest_address'>{info !== '' ?
+            `${info.location.address1} \n ${info.location.city}, ${info.location.state} ${info.location.zip_code}` : ''}</p>
+          <p className='yelp_price'>{`Yelp Price: ${info.price === undefined ? 'No Rating' : info.price}`}</p>
+          <p>{info !== '' ? info.rating : ''}</p>
+          <p className = 'likes'>{`Liked: ${this.props.likes.likes === undefined ? 'No Rating': this.props.likes.likes}`}</p>
+          <p className = 'dislikes'>{`Disliked: ${this.props.likes.dislikes === undefined ? 'No Rating': this.props.likes.dislikes}`}</p>
+          <p className = 'percentage'>{`Percent Liked ${this.props.likes.likes !== undefined && this.props.likes.dislikes/this.props.likes.likes > 0 ? `${(1 - (this.props.likes.dislikes/this.props.likes.likes)).toString().slice(2, 4)}%` : '0'}`}</p>
+        </div>
       </div>
-    )
-  }
+    );
+  };
 
   render(){
     // let info = this.props.state.selection ? this.props.state.selection : '';
     return(
-      <div>
+      <div className='info_container'>
         {this.renderInfoSection()}
         <div>
-          {this.renderCommentSection()}
+          {this.renderCommentForm()}
           {this.renderComments()}
         </div>
       </div>
     )
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
   addUserSelection: (selection) => dispatch(actions.addUserSelection(selection)),

@@ -35,6 +35,7 @@ class resultsPage extends Component {
         search.map((info, i)=> {
           return(
             <ChoiceCards
+              internal_info={this.props.results.search[i]}
               data = {info}
               addUserSelection = {this.props.addUserSelection}
             />
@@ -45,6 +46,7 @@ class resultsPage extends Component {
       return (
         <ChoiceCards
           data = {random}
+          // internal_info={this.props.results.search}
           addUserSelection = {this.props.addUserSelection}
         />
       )
