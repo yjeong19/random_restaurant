@@ -170,11 +170,13 @@ class selectionLandingPage extends Component {
 
     let map = L.map('mapid', {
     center: [latitude === undefined ? 0 : latitude, longitude === undefined ? 0 : longitude],
-    zoom: 13
+    zoom: 20
     });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+    L.marker([latitude === undefined ? 0 : latitude, longitude === undefined ? 0 : longitude]).addTo(map);
 
     // return(
     //   <div id='mapid'>
@@ -212,15 +214,20 @@ class selectionLandingPage extends Component {
   render(){
     // let info = this.props.state.selection ? this.props.state.selection : '';
     return(
+      <div className='container'>
       <div className='info_container row'>
         <div className ='col-md-6'>{this.renderInfoSection()}</div>
+        <div className ='col-md-6' id='mapid'>MAP CONTAINER</div>
+      </div>
+      <div className='row'>
+        <div className='col-md-6'></div>
         <div className='col-md-6'>
-          <div id='mapid'>MAP CONTAINER</div>
           {this.renderCommentForm()}
           {this.renderComments()}
-          {/* {this.renderLeafletMap()} */}
         </div>
+        {/* {this.renderLeafletMap()} */}
       </div>
+    </div>
     )
   }
 };
