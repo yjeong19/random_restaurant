@@ -198,7 +198,7 @@ class selectionLandingPage extends Component {
           <p className='rest_address'>{info !== '' ?
             `${info.location.address1} \n ${info.location.city}, ${info.location.state} ${info.location.zip_code}` : ''}</p>
           <p className='yelp_price'>{`Yelp Price: ${info.price === undefined ? 'No Rating' : info.price}`}</p>
-          <p>{`Yelp Rating: ${info.rating === undefined ? 'No Rating' : info.price}`}</p>
+          <p>{`Yelp Rating: ${info.rating === undefined ? 'No Rating' : info.rating}`}</p>
           <p className = 'likes'>{`Liked: ${this.props.likes.likes === undefined ? 'No Rating': this.props.likes.likes}`}</p>
           <p className = 'dislikes'>{`Disliked: ${this.props.likes.dislikes === undefined ? 'No Rating': this.props.likes.dislikes}`}</p>
           <p className = 'percentage'>{`Percent Liked ${this.props.likes.likes !== undefined && this.props.likes.dislikes/this.props.likes.likes > 0 ? `${(1 - (this.props.likes.dislikes/this.props.likes.likes)).toString().slice(2, 4)}%` : '0'}`}</p>

@@ -1,5 +1,11 @@
 # random_restaurant
 randomly selects restaurant using yelp api
+#MVP ready to deploy
+
+
+
+
+----------------------------------------------------
 
 ## Things to do
 * ~~Connect Yelp API~~

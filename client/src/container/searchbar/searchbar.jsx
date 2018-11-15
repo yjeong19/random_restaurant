@@ -106,7 +106,7 @@ class searchbar extends Component {
         <h1 className='pick_something'>Pick Something</h1>
         <nav className="navbar search_container" >
           <form class="search_form form-inline">
-            <input class="form-control mr-sm-2" placeholder = 'categories' id = 'categories' onChange = {this.handleSearchInput}/>
+            <input class="form-control mr-sm-2" placeholder = 'type of food or restaurant' id = 'categories' onChange = {this.handleSearchInput}/>
             <input class="form-control mr-sm-2" placeholder = 'location' id = 'location' onChange = {this.handleSearchInput}/>
             <div>{this.renderPriceChoice()}</div>
 

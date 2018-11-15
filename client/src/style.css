@@ -7,3 +7,9 @@
   align-items: center;
   /* padding-bottom: 20px; */
 }
+
+h1{
+  font-family: 'Fredoka One', cursive;
+  color: #24305E;
+  /* text-shadow: 5px black; */
+}
