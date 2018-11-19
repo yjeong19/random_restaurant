@@ -1,22 +1,22 @@
-#MVP
+# MVP
 ----------------------------------------------------
-## initial search engine -- uses Yelp Fusion API and searches can be done based on restaurant name or a category of food.
+### initial search engine -- uses Yelp Fusion API and searches can be done based on restaurant name or a category of food.
   * ![searchbar](./mvp_pics/searchbar.png)
 
-## if you press search, it will show 50 search results from yelp. If you press randomize, it will randomly select a restaurant from the 50 search results. You can start by pressing randomize.
+### if you press search, it will show 50 search results from yelp. If you press randomize, it will randomly select a restaurant from the 50 search results. You can start by pressing randomize.
   * ![randomize](./mvp_pics/randomize.png)
 
-## once you select a restaurant, it goes to a landing page that shows the address, yelp info (rating, price and address) as well as a number of liked and disliked on this website.
+### once you select a restaurant, it goes to a landing page that shows the address, yelp info (rating, price and address) as well as a number of liked and disliked on this website.
   * ![landing page](./mvp_pics/selection_landing.png)
 
-## the like and dislike button triggers a call to server to findOneAndUpdate the likes field in the backend.
+### the like and dislike button triggers a call to server to findOneAndUpdate the likes field in the backend.
   * ![like/dislike](./mvp_pics/like_percentage.png)
 
-## comment section -- needs finishing based on user private routes. can leave comment and name, will incorporate authentication and deletion of comments.
+### comment section -- needs finishing based on user private routes. can leave comment and name, will incorporate authentication and deletion of comments.
   * ![comment](./mvp_pics/comment_section.png)
 
 ------------------------------------------------------
-#NOTES
+# NOTES
 
   * authentication backend completed - using express/bcrypt and mongoose. need to incorporate front end authentication based on login and define private routes.
 
