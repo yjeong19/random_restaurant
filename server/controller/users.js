@@ -19,7 +19,7 @@ router.post('/register', (req, res) => {
   if(!isValid){
     return res.status(400).json(errors);
   }
-
+  debugger;
   db.user.findOne({ email: req.body.email })
   .then(user => {
     //checks if user with email exists

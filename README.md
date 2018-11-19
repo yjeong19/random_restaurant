@@ -1,3 +1,30 @@
+#MVP
+----------------------------------------------------
+## initial search engine -- uses Yelp Fusion API and searches can be done based on restaurant name or a category of food.
+  * ![searchbar](./mvp_pics/searchbar.png)
+
+## if you press search, it will show 50 search results from yelp. If you press randomize, it will randomly select a restaurant from the 50 search results. You can start by pressing randomize.
+  * ![randomize](./mvp_pics/randomize.png)
+
+## once you select a restaurant, it goes to a landing page that shows the address, yelp info (rating, price and address) as well as a number of liked and disliked on this website.
+  * ![landing page](./mvp_pics/selection_landing.png)
+
+## the like and dislike button triggers a call to server to findOneAndUpdate the likes field in the backend.
+  * ![like/dislike](./mvp/like_percentage.png)
+
+## comment section -- needs finishing based on user private routes. can leave comment and name, will incorporate authentication and deletion of comments.
+  * ![comment](./mvp/comment_section.png)
+
+------------------------------------------------------
+#NOTES
+
+  * authentication backend completed - using express/bcrypt and mongoose. need to incorporate front end authentication based on login and define private routes.
+
+  * since the server and client is hosted on a free Heroku server. The servers go to sleep if unused -- it may take a while to have client load the front page initially and also the backend search calls may take a while in the intial search if the servers were asleep.
+  
+
+
+
 # random_restaurant
 randomly selects restaurant using yelp api
 #MVP ready to deploy
@@ -15,14 +42,14 @@ randomly selects restaurant using yelp api
 * ~~route to landing page based on restaurant ID~~
   * figure out what data to pass to landing package
   * post comments on page -- connect db to landing
-* keep track of likes
+* ~~keep track of likes~~
   * track percentages
 * Need Auth
 * ~~Incorporate Redux~~
 * ~~Create Routes~~
 * Create error handler
 * ~~Comment sections~~
-* add other options for search
+* ~~add other options for search~~
   * Price
   * Stars
 

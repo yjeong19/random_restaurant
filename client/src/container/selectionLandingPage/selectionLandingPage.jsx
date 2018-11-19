@@ -153,7 +153,7 @@ class selectionLandingPage extends Component {
 
   renderCommentForm(){
     return(
-        <div>
+        <div className='comment_form'>
           {/* temporarily name, add auth later */}
           <input className = 'form-control comment_name' id='user' placeholder = 'user' onChange = {this.handleCommentInput}/>
           <textarea className = 'form-control comment' id='comment' placeholder = 'comment' onChange = {this.handleCommentInput}/>
@@ -175,7 +175,7 @@ class selectionLandingPage extends Component {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-
+    //L.marker puts pin based on yelp lat long
     L.marker([latitude === undefined ? 0 : latitude, longitude === undefined ? 0 : longitude]).addTo(map);
 
     // return(
@@ -217,7 +217,9 @@ class selectionLandingPage extends Component {
       <div className='container'>
       <div className='info_container row'>
         <div className ='col-md-6'>{this.renderInfoSection()}</div>
-        <div className ='col-md-6' id='mapid'>MAP CONTAINER</div>
+        <div className='col-md-6 map_container'>
+          <div id='mapid'>MAP CONTAINER</div>
+        </div>
       </div>
       <div className='row'>
         <div className='col-md-6'></div>
