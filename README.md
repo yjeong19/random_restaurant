@@ -59,7 +59,8 @@ randomly selects restaurant using yelp api
 * YELP API
 * React - front end
 * Redux - state management
-* Node - back end
+* Node/Express - back end
+* MongoDB/Mongoose -DB
 
 
 --------------------------------------------------
