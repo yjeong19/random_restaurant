@@ -10,10 +10,10 @@
   * ![landing page](./mvp_pics/selection_landing.png)
 
 ## the like and dislike button triggers a call to server to findOneAndUpdate the likes field in the backend.
-  * ![like/dislike](./mvp/like_percentage.png)
+  * ![like/dislike](./mvp_pics/like_percentage.png)
 
 ## comment section -- needs finishing based on user private routes. can leave comment and name, will incorporate authentication and deletion of comments.
-  * ![comment](./mvp/comment_section.png)
+  * ![comment](./mvp_pics/comment_section.png)
 
 ------------------------------------------------------
 #NOTES
@@ -21,7 +21,7 @@
   * authentication backend completed - using express/bcrypt and mongoose. need to incorporate front end authentication based on login and define private routes.
 
   * since the server and client is hosted on a free Heroku server. The servers go to sleep if unused -- it may take a while to have client load the front page initially and also the backend search calls may take a while in the intial search if the servers were asleep.
-  
+
 
 
 
